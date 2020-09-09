@@ -1,15 +1,15 @@
 server:
-    port: 8989
+  port: 8989
 
 spring:
-    cloud:
-        gateway:
-            routes:
-                - id: user-service
-                  uri: lb://user-service
-                  predicates:
-                      - Path=/rest/auth
-                - id: song-service
-                  uri: lb://song-service
-                  predicates:
-                      - Path=/rest/songs/**, /rest/songlists/**
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/rest/auth
+        - id: song-service
+          uri: lb://song-service
+          predicates:
+            - Path=/rest/songs/**, /rest/songlists/**
