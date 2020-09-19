@@ -11,8 +11,12 @@ ribbon:
     eager-load:
         # Eager load the child ribbon related application contexts at application startup time
         enabled: true
-    ReadTimeout: 40000
-    ConnectTimeout: 10000
+    ReadTimeout: 30000 # Timeout of request processing after connection is established
+    ConnectTimeout: 15000 # Time-out for connection establishment
+    MaxAutoRetries: 1 # the number of times a failed request is retried on the same server (default 0)
+    MaxAutoRetriesNextServer: 1 # the number of servers to try excluding the first one
+    retryableStatusCodes: 503, 408 # the list of HTTP status codes to retry (Service unavailable, timeout)
+    OkToRetryOnAllOperations: true # when this property is set to true, all types of HTTP requests are retried, not just GET ones (default)
     eureka:
         enabled: true
 
@@ -23,7 +27,10 @@ hystrix:
             execution:
                 isolation:
                     thread:
-                        timeoutInMilliseconds: 60000
+                        # Should not be lower than:
+                        # ribbonTimeout = (ribbonReadTimeout + ribbonConnectTimeout) * (maxAutoRetries + 1) * (maxAutoRetriesNextServer + 1);
+                        # = (15000 + 30000) * (1 + 1) * (1 + 1) = 180000
+                        timeoutInMilliseconds: 180000 # Fuse service request timeout
 
 zuul:
     prefix: /songsMS-patanis/rest
