@@ -25,7 +25,6 @@ hystrix:
                     thread:
                         timeoutInMilliseconds: 60000
 
-
 zuul:
     prefix: /songsMS-patanis/rest
     strip-prefix: true
@@ -59,6 +58,12 @@ zuul:
         playlist-controller:
             path: /songlists/**
             service-id: song-service
+            strip-prefix: false
+
+        version:
+            path: /version/**
+            service-id: song-service
+            servicePath: /songs/version
             strip-prefix: false
 
         config-server-version:
