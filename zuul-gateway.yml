@@ -61,7 +61,10 @@ zuul:
             service-id: song-service
             strip-prefix: false
 
-        git-version-controller:
-            path: /version/**
-            service-id: song-service
-            strip-prefix: false
+        config-server-version:
+            path: /config/version/**
+            url: http://localhost:8888/config/version
+
+        discovery-server-version:
+            path: /discovery/version/**
+            url: http://localhost:8761/discovery/version
