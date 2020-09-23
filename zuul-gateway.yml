@@ -33,7 +33,7 @@ hystrix:
                         timeoutInMilliseconds: 180000 # Fuse service request timeout
 
 zuul:
-    prefix: /songsMS-patanis/rest
+    prefix: /api
     strip-prefix: true
 
     # Disable accessing services using service name (i.e. gallery-service). Only allow access to the routes that are
